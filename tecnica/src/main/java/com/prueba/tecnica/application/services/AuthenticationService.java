@@ -22,14 +22,13 @@ public class AuthenticationService implements IAuthenticationService {
     JWTService jwtService;
 
     @Override
-    public UserModel authenticateUser(String password, String identificationNumber) throws Exception {
+    public String authenticateUser(String password, String identificationNumber) throws Exception {
         UserModel userF = userRepository.findByInAndPassword(identificationNumber);
         if (userF != null) {
             boolean pass = passwordEncoder.matches(password, userF.getPassword());
             if (pass) {
                 String jwt = jwtService.generateToken(userF);
-                System.out.println(jwt);
-                return userRepository.findByInAndPassword(identificationNumber);
+                return jwt;
             } else {
                 throw new NotFoundException("No son Validas las credenciales");
             }

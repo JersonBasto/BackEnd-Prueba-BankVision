@@ -30,6 +30,8 @@ public class AuthController {
     @PostMapping("user/login")
     public ResLoginDto loginUser(@RequestBody LoginDto data) throws Exception {
         String jwt = authenticationService.authenticateUser(data.getPassword(), data.getIdentificationNumber());
+        Object json = jwtService.validateToken(jwt);
+        System.out.println(json);
         ResLoginDto res = new ResLoginDto();
         if (jwt != null) {
             res.setState(true);
@@ -37,14 +39,15 @@ public class AuthController {
         }
         return res;
     }
-    //U2FsdGVkX19uxGxomE7JeDLaZmtE8aRpk0COkGKDECnyUHxHQHdWn9synL6mPQ8vLILOUWBl/EqtEDWqBP5hiAdSIEd5nTv5bXPEo+b6GjznX/lLnNaOnJtwLk/2CBkf
-    //U2FsdGVkX19uxGxomE7JeDLaZmtE8aRpk0COkGKDECnyUHxHQHdWn9synL6mPQ8vLILOUWBl/EqtEDWqBP5hiAdSIEd5nTv5bXPEo+b6GjznX/lLnNaOnJtwLk/2CBkf
+
+    // U2FsdGVkX19uxGxomE7JeDLaZmtE8aRpk0COkGKDECnyUHxHQHdWn9synL6mPQ8vLILOUWBl/EqtEDWqBP5hiAdSIEd5nTv5bXPEo+b6GjznX/lLnNaOnJtwLk/2CBkf
+    // U2FsdGVkX19uxGxomE7JeDLaZmtE8aRpk0COkGKDECnyUHxHQHdWn9synL6mPQ8vLILOUWBl/EqtEDWqBP5hiAdSIEd5nTv5bXPEo+b6GjznX/lLnNaOnJtwLk/2CBkf
     @PostMapping("encript")
     public String encript(@RequestBody DataDto entity) throws Exception {
-        System.out.println(entity.getData());
-        System.out.println(jwtService.validateToken(entity.getData()));
-        //T data = encriptService.decryptJson(entity, valueType);
-        //System.out.println("Desencriptado: " + data);
+        //System.out.println(entity.getData());
+        //System.out.println(jwtService.validateToken(entity.getData()));
+        // T data = encriptService.decryptJson(entity, valueType);
+        // System.out.println("Desencriptado: " + data);
         return null;
     }
 

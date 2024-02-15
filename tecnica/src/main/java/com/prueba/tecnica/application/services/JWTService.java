@@ -27,6 +27,7 @@ public class JWTService {
 
     public String generateToken(UserModel user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("jsonPayload", user);
         Key key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
         return Jwts.builder().setClaims(claims).setSubject(user.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -47,7 +48,7 @@ public class JWTService {
     public boolean validateToken(String jwtToken) {
         try {
             Claims claims = this.decodeToken(jwtToken);
-
+            System.out.println(claims.get("jsonPayload"));
             // Accede a los claims según sea necesario
             System.out.println("Subject: " + claims.getSubject());
             System.out.println("Issued At: " + claims.getIssuedAt());

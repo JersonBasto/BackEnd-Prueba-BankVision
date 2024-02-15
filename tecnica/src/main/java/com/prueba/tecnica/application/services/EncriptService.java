@@ -1,7 +1,6 @@
 package com.prueba.tecnica.application.services;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.stereotype.Service;
@@ -39,13 +38,9 @@ public class EncriptService {
     // Método para descifrar datos con una clave compartida
     private String decrypt(String encryptedData) throws Exception {
         // Cipher cipher = Cipher.getInstance("AES");
-        System.out.println("LlegaACa");
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        System.out.println("LlegaCipher");
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), "AES/CBC/PKCS5Padding");
-        System.out.println("Algo de un llave");
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-        System.out.println("Inicia Creo");
         byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
         return new String(decryptedBytes);
     }
